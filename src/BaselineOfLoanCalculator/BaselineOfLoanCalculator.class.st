@@ -15,5 +15,5 @@ BaselineOfLoanCalculator >> baseline: spec [
 			baseline: 'Camping'
 			with: [ spec repository: 'github://mattonem/WildCamping' ].
 
-		spec package: #LoanCalculator with: [ spec requires: #( Camping ) ] ]
+		spec package: #LoanCalculator with: [ spec requires: #( LoanCalculator ) ] ]
 ]

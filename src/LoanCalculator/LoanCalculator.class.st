@@ -40,8 +40,33 @@ LoanCalculator class >> exporterClass [
 LoanCalculator class >> generateHtmlUsing: html [
 
 	<pharoJsSkip>
-	
-	
+
+	html div class: 'container mt-5'; with: [
+		html div class: 'row justify-content-center'; with: [
+			html div class: 'col-md-6'; with: [
+				html div class: 'card'; with: [
+					html div class: 'card-header'; with: [ html text: 'Loan Calculator' ].
+					html div class: 'card-body'; with: [
+						html form with: [
+							html div class: 'mb-3'; with: [
+								html label class: 'form-label'; for: 'loanAmount'; with: [ html text: 'Loan amount' ].
+								html input type: 'number'; class: 'form-control'; id: 'loanAmount'; placeholder: 'Enter loan amount'.
+							].
+							html div class: 'mb-3'; with: [
+								html label class: 'form-label'; for: 'loanTerm'; with: [ html text: 'Loan term (years)' ].
+								html input type: 'number'; class: 'form-control'; id: 'loanTerm'; placeholder: 'Enter loan term'.
+							].
+							html div class: 'mb-3'; with: [
+								html label class: 'form-label'; for: 'interestRate'; with: [ html text: 'Interest rate (%)' ].
+								html input type: 'number'; class: 'form-control'; id: 'interestRate'; placeholder: 'Enter interest rate'.
+							].
+							html button type: 'submit'; class: 'btn btn-primary'; with: [ html text: 'Calculate' ].
+						].
+					].
+				].
+			].
+		].
+	].
 ]
 
 { #category : 'accessing' }

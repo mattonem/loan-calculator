@@ -41,6 +41,7 @@ LoanCalculator class >> generateHtmlUsing: html [
 
 	<pharoJsSkip>
 	
+	
 ]
 
 { #category : 'accessing' }

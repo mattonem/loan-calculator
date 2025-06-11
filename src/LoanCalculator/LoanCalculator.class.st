@@ -60,7 +60,7 @@ LoanCalculator class >> generateHtmlUsing: html [
 								html label class: 'form-label'; for: 'interestRate'; with: [ html text: 'Interest rate (%)' ].
 								html numberInput class: 'form-control'; id: 'interestRate'; placeholder: 'Enter interest rate'.
 							].
-							html button type: 'submit'; class: 'btn btn-primary'; with: [ html text: 'Calculate' ].
+							html submitButton class: 'btn btn-primary'; with: [ html text: 'Calculate' ].
 						].
 					].
 				].

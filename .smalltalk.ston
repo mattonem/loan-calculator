@@ -1,0 +1,19 @@
+SmalltalkCISpec {
+  #loading : [
+    SCIMetacelloLoadSpec {
+      #baseline : 'LoanCalculator',
+      #directory : 'src',  
+      #platforms : [ #pharo ]
+    }
+  ],
+  #postLoading : [
+    'scripts/exportApp.st'
+  ],
+  #testing : { 
+    #failOnZeroTests : false,
+    #categories : [ 'LoanCalculator' ],
+    #coverage : {
+      #packages : [ 'LoanCalculator' ]
+    }
+  }
+}

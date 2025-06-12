@@ -104,13 +104,16 @@ LoanCalculator >> start [
 		event preventDefault.
 		window alert: 'Calculation triggered!'.
 		console log: 'amortizationTableFor: interestRate: term:'.
-		console log: (self  amortizationTableFor: (document getElementById: 'loanAmount') value interest:  (document getElementById: 'interestRate') value  term: (document getElementById: 'loanTerm') value).
+		console log: (self  
+			amortizationTableFor: (document getElementById: 'loanAmount') value 
+			interest:  (document getElementById: 'interestRate') value  
+			term: (document getElementById: 'loanTerm') value).
 	].
 	
 ]
 
 { #category : 'calculation' }
-LoanCalculator class >> amortizationTableFor: loanAmount interest:  term: loanTerm [
+LoanCalculator >> amortizationTableFor: loanAmount interest: interestRate term: loanTerm [
 	| principal interest monthlyRate n schedule remaining principalPayment interestPayment payment |
 	"Calculate monthly payment and build amortization schedule as a table."
 	monthlyRate := (interestRate / 100) / 12.
@@ -127,11 +130,11 @@ LoanCalculator class >> amortizationTableFor: loanAmount interest:  term: loanTe
 	^ schedule
 ]
 
-LoanCalculator class >> amortizationTableHtmlFor: loanAmount interest: interestRate term: loanTerm html: html [
+LoanCalculator >> amortizationTableHtmlFor: loanAmount interest: interestRate term: loanTerm html: html [
 	| schedule |
 	schedule := self amortizationTableFor: loanAmount interest: interestRate term: loanTerm.
 
-	html table class: 'table table-striped'; with: [
+	html table clazz: 'table table-striped'; with: [
 		html thead with: [
 			html tr with: [
 				html th with: [ html text: 'Month' ].

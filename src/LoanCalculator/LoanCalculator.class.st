@@ -64,6 +64,16 @@ LoanCalculator class >> generateHtmlUsing: html [
 						].
 					].
 				].
+				html div class: 'card'; with: [
+					
+					html div class: 'card-body'; id: 'costSummary'; with: [
+						self 
+							costSummaryHtmlFor: 10000 
+							interest: 5 
+							term: 10
+							html: html
+					].
+				].
 
 				html div class: 'card'; with: [
 					
@@ -111,21 +121,25 @@ LoanCalculator >> start [
 	super start.
 
 	(document querySelector: 'form') addEventListener: 'submit' do: [ :event |
-		| frag |
-		event preventDefault.
-		(document getElementById:'amortizationTable') innerHTML: ''.
-		frag := document createElement: 'template'.
-		frag innerHTML: (WCHtmlCanvas builder
-			fullDocument: false;
-			render: [ :html | self 
-				amortizationTableHtmlFor: (document getElementById: 'loanAmount') value asNumber 
-				interest: (document getElementById: 'interestRate') value asNumber  
-				term: (document getElementById: 'loanTerm') value asNumber 
-				html: html ]).
-		(document getElementById:'amortizationTable') appendChild: frag content.
+		self handleFormSubmit: event
 	].
-	
 ]
+
+LoanCalculator >> handleFormSubmit: event [
+	| frag |
+	event preventDefault.
+	(document getElementById:'amortizationTable') innerHTML: ''.
+	frag := document createElement: 'template'.
+	frag innerHTML: (WCHtmlCanvas builder
+		fullDocument: false;
+		render: [ :html | self 
+			amortizationTableHtmlFor: (document getElementById: 'loanAmount') value asNumber 
+			interest: (document getElementById: 'interestRate') value asNumber  
+			term: (document getElementById: 'loanTerm') value asNumber 
+			html: html ]).
+	(document getElementById:'amortizationTable') appendChild: frag content.
+]
+
 
 { #category : 'calculation' }
 LoanCalculator class >> monthlyPaymentFor: loanAmount interest: interestRate term: loanTerm [
@@ -190,4 +204,19 @@ LoanCalculator class >> decimalRounded: value decimal: decimal [
 	| factor |
 	factor := 10 raisedTo: decimal.
 	^ (value * factor) rounded / factor
+]
+
+LoanCalculator class >> costSummaryHtmlFor: loanAmount interest: interestRate term: loanTerm html: html [
+	| monthlyPayment totalCost |
+	monthlyPayment := self monthlyPaymentFor: loanAmount interest: interestRate term: loanTerm.
+	totalCost := monthlyPayment * (term * 12).
+
+	html div class: 'mb-2'; with: [
+		html strong with: [ html text: 'Monthly payment: ' ].
+		html span with: [ html text: (self decimalRounded: monthlyPayment decimal: 2) asString ].
+	].
+	html div class: 'mb-2'; with: [
+		html strong with: [ html text: 'Total cost: ' ].
+		html span with: [ html text: (self decimalRounded: totalCost decimal: 2) asString ].
+	].
 ]

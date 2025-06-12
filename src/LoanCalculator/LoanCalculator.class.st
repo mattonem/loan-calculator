@@ -98,11 +98,9 @@ LoanCalculator class >> updateHtmlRoot: root [
 { #category : 'initialize-release' }
 LoanCalculator >> start [
 	
-	| doc |
 	super start.
 
-	doc := self bridgeClientClass document.
-	(doc querySelector: 'form') addEventListener: 'submit' do: [ :event |
+	(document querySelector: 'form') addEventListener: 'submit' do: [ :event |
 		event preventDefault.
 		self bridgeClientClass window alert: 'Calculation triggered!'.
 	].

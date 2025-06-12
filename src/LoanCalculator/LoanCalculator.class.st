@@ -212,11 +212,11 @@ LoanCalculator class >> costSummaryHtmlFor: loanAmount interest: interestRate te
 	totalCost := monthlyPayment * (loanTerm * 12).
 
 	html div class: 'mb-2'; with: [
-		html strong with: [ html text: 'Monthly payment: ' ].
+		html span with: [ html text: 'Monthly payment: ' ].
 		html span with: [ html text: (self decimalRounded: monthlyPayment decimal: 2) asString ].
 	].
 	html div class: 'mb-2'; with: [
-		html strong with: [ html text: 'Total cost: ' ].
+		html span with: [ html text: 'Total cost: ' ].
 		html span with: [ html text: (self decimalRounded: totalCost decimal: 2) asString ].
 	].
 ]

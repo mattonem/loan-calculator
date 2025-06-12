@@ -67,7 +67,12 @@ LoanCalculator class >> generateHtmlUsing: html [
 
 				html div class: 'card'; with: [
 					
-					html div class: 'card-body'; id: 'result'.
+					html div class: 'card-body'; id: 'result'; with: [
+						self 
+							amortizationTableHtmlFor: 10000
+							interest: 5
+							term: 10
+							html: html ].
 				].
 			].
 		].
@@ -108,6 +113,7 @@ LoanCalculator >> start [
 	(document querySelector: 'form') addEventListener: 'submit' do: [ :event |
 		| frag |
 		event preventDefault.
+		(document getElementById:'result') innerHTML: ''.
 		frag := document createElement: 'template'.
 		frag innerHTML: (WCHtmlCanvas builder
 			fullDocument: false;

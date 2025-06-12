@@ -129,6 +129,18 @@ LoanCalculator >> handleFormSubmit: event [
 	| frag |
 	event preventDefault.
 	(document getElementById:'amortizationTable') innerHTML: ''.
+	(document getElementById:'costSummary') innerHTML: ''.
+	
+	frag := document createElement: 'template'.
+	frag innerHTML: (WCHtmlCanvas builder
+		fullDocument: false;
+		render: [ :html | 
+			costSummaryHtmlFor: (document getElementById: 'loanAmount') value asNumber 
+			interest: (document getElementById: 'interestRate') value asNumber  
+			term: (document getElementById: 'loanTerm') value asNumber 
+			html: html ]).
+	(document getElementById:'costSummary') appendChild: frag content.
+
 	frag := document createElement: 'template'.
 	frag innerHTML: (WCHtmlCanvas builder
 		fullDocument: false;
@@ -204,6 +216,10 @@ LoanCalculator class >> decimalRounded: value decimal: decimal [
 	| factor |
 	factor := 10 raisedTo: decimal.
 	^ (value * factor) rounded / factor
+]
+
+LoanCalculator >> costSummaryHtmlFor: loanAmount interest: interestRate term: loanTerm html: html [
+	^ self class costSummaryHtmlFor: loanAmount interest: interestRate term: loanTerm html: html
 ]
 
 LoanCalculator class >> costSummaryHtmlFor: loanAmount interest: interestRate term: loanTerm html: html [

@@ -226,7 +226,7 @@ LoanCalculator class >> costSummaryHtmlFor: loanAmount interest: interestRate te
 	| monthlyPayment  totalWithPrincipal ratio |
 	monthlyPayment := self monthlyPaymentFor: loanAmount interest: interestRate term: loanTerm.
 	totalWithPrincipal := monthlyPayment * (loanTerm * 12).
-	ratio := loanAmount / totalWithPrincipal.
+	ratio := (totalWithPrincipal - loanAmount) / loanAmount.
 
 	html div class: 'mb-2'; with: [
 		html span with: [ html text: 'Monthly payment: ' ].

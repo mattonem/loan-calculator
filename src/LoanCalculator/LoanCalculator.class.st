@@ -209,7 +209,7 @@ LoanCalculator class >> decimalRounded: value decimal: decimal [
 LoanCalculator class >> costSummaryHtmlFor: loanAmount interest: interestRate term: loanTerm html: html [
 	| monthlyPayment totalCost |
 	monthlyPayment := self monthlyPaymentFor: loanAmount interest: interestRate term: loanTerm.
-	totalCost := monthlyPayment * (term * 12).
+	totalCost := monthlyPayment * (loanTerm * 12).
 
 	html div class: 'mb-2'; with: [
 		html strong with: [ html text: 'Monthly payment: ' ].

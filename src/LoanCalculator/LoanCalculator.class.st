@@ -215,7 +215,7 @@ LoanCalculator  >> amortizationTableHtmlFor: loanAmount interest: interestRate t
 LoanCalculator class >> decimalRounded: value decimal: decimal [
 	| factor |
 	factor := 10 raisedTo: decimal.
-	^ (value * factor) rounded / factor
+	^ ((value * factor) rounded / factor) asFloat
 ]
 
 LoanCalculator >> costSummaryHtmlFor: loanAmount interest: interestRate term: loanTerm html: html [

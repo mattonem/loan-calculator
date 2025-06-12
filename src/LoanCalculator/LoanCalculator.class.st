@@ -128,7 +128,7 @@ LoanCalculator >> amortizationTableFor: loanAmount interest: interestRate term: 
 	"Calculate monthly payment and build amortization schedule as a table."
 	monthlyRate := (interestRate / 100) / 12.
 	n := loanTerm * 12.
-	payment := loanAmount * (monthlyRate * (1 + monthlyRate) raisedTo: n) / (((1 + monthlyRate) raisedTo: n) - 1).
+	payment := (loanAmount * (monthlyRate * (1 + monthlyRate) raisedTo: n)) / (((1 + monthlyRate) raisedTo: n) - 1).
 	console log: 'Monthly payment: ', payment asString.
 	schedule := OrderedCollection new.
 	remaining := loanAmount.

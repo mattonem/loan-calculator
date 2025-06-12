@@ -108,7 +108,6 @@ LoanCalculator >> start [
 	(document querySelector: 'form') addEventListener: 'submit' do: [ :event |
 		| frag |
 		event preventDefault.
-		console log: 'amortizationTableFor: interestRate: term:'.
 		frag := document createElement: 'template'.
 		frag innerHTML: (WCHtmlCanvas builder
 			fullDocument: false;
@@ -129,7 +128,6 @@ LoanCalculator >> amortizationTableFor: loanAmount interest: interestRate term: 
 	monthlyRate := (interestRate / 100) / 12.
 	n := loanTerm * 12.
 	payment := (loanAmount * (monthlyRate * ((1 + monthlyRate) raisedTo: n))) / (((1 + monthlyRate) raisedTo: n) - 1).
-	console log: 'Monthly payment: ', payment asString.
 	schedule := OrderedCollection new.
 	remaining := loanAmount.
 	1 to: n do: [:month |

@@ -65,7 +65,7 @@ LoanCalculator class >> generateHtmlUsing: html [
 					].
 				].
 				html div class: 'card'; with: [
-					
+					html div class: 'card-header'; with: [ html text: 'Cost summary' ].
 					html div class: 'card-body'; id: 'costSummary'; with: [
 						self 
 							costSummaryHtmlFor: 10000 
@@ -76,7 +76,7 @@ LoanCalculator class >> generateHtmlUsing: html [
 				].
 
 				html div class: 'card'; with: [
-					
+					html div class: 'card-header'; with: [ html text: 'Amortization table' ].
 					html div class: 'card-body'; id: 'amortizationTable'; with: [
 						self 
 							amortizationTableHtmlFor: 10000
@@ -223,16 +223,25 @@ LoanCalculator >> costSummaryHtmlFor: loanAmount interest: interestRate term: lo
 ]
 
 LoanCalculator class >> costSummaryHtmlFor: loanAmount interest: interestRate term: loanTerm html: html [
-	| monthlyPayment totalCost |
+	| monthlyPayment  totalWithPrincipal ratio |
 	monthlyPayment := self monthlyPaymentFor: loanAmount interest: interestRate term: loanTerm.
-	totalCost := monthlyPayment * (loanTerm * 12).
+	totalWithPrincipal := monthlyPayment * (loanTerm * 12).
+	ratio := loanAmount / totalWithPrincipal.
 
 	html div class: 'mb-2'; with: [
 		html span with: [ html text: 'Monthly payment: ' ].
 		html span with: [ html text: (self decimalRounded: monthlyPayment decimal: 2) asString ].
 	].
 	html div class: 'mb-2'; with: [
-		html span with: [ html text: 'Total cost: ' ].
-		html span with: [ html text: (self decimalRounded: totalCost decimal: 2) asString ].
+		html span with: [ html text: 'Total cost (interest + principal): ' ].
+		html span with: [ html text: (self decimalRounded: totalWithPrincipal decimal: 2) asString ].
+	].
+	html div class: 'mb-2'; with: [
+		html span with: [ html text: 'Interest paid: ' ].
+		html span with: [ html text: (self decimalRounded: (totalWithPrincipal - loanAmount) decimal: 2) asString ].
+	].
+	html div class: 'mb-2'; with: [
+		html span with: [ html text: 'Loan to cost ratio: ' ].
+		html span with: [ html text: (self decimalRounded: ratio decimal: 2) asString ].
 	].
 ]

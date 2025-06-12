@@ -242,6 +242,6 @@ LoanCalculator class >> costSummaryHtmlFor: loanAmount interest: interestRate te
 	].
 	html div class: 'mb-2'; with: [
 		html span with: [ html text: 'Loan to cost ratio: ' ].
-		html span with: [ html text: ( ratio * 100 ) rounded asString, '%' ].
+		html span with: [ html text: (self decimalRounded: (ratio * 100) decimal: 2) rounded asString, '%' ].
 	].
 ]

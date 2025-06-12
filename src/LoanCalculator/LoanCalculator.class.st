@@ -67,7 +67,7 @@ LoanCalculator class >> generateHtmlUsing: html [
 
 				html div class: 'card'; with: [
 					
-					html div class: 'card-body'; id: 'result'; with: [
+					html div class: 'card-body'; id: ' amortizationTable '; with: [
 						self 
 							amortizationTableHtmlFor: 10000
 							interest: 5
@@ -113,7 +113,7 @@ LoanCalculator >> start [
 	(document querySelector: 'form') addEventListener: 'submit' do: [ :event |
 		| frag |
 		event preventDefault.
-		(document getElementById:'result') innerHTML: ''.
+		(document getElementById:' amortizationTable ') innerHTML: ''.
 		frag := document createElement: 'template'.
 		frag innerHTML: (WCHtmlCanvas builder
 			fullDocument: false;
@@ -122,13 +122,13 @@ LoanCalculator >> start [
 				interest: (document getElementById: 'interestRate') value asNumber  
 				term: (document getElementById: 'loanTerm') value asNumber 
 				html: html ]).
-		(document getElementById:'result') appendChild: frag content.
+		(document getElementById:' amortizationTable ') appendChild: frag content.
 	].
 	
 ]
 
 { #category : 'calculation' }
-LoanCalculator >> monthlyPaymentFor: loanAmount interest: interestRate term: loanTerm [
+LoanCalculator class >> monthlyPaymentFor: loanAmount interest: interestRate term: loanTerm [
 	| monthlyRate n |
 	monthlyRate := (interestRate / 100) / 12.
 	n := loanTerm * 12.
@@ -137,7 +137,7 @@ LoanCalculator >> monthlyPaymentFor: loanAmount interest: interestRate term: loa
 		ifFalse: [ loanAmount * (monthlyRate * ((1 + monthlyRate) raisedTo: n)) / (((1 + monthlyRate) raisedTo: n) - 1) ]
 ]
 
-LoanCalculator >> amortizationTableFor: loanAmount interest: interestRate term: loanTerm [
+LoanCalculator class >> amortizationTableFor: loanAmount interest: interestRate term: loanTerm [
 	| monthlyRate n schedule remaining principalPayment interestPayment payment |
 	"Calculate monthly payment and build amortization schedule as a table."
 	monthlyRate := (interestRate / 100) / 12.
@@ -154,7 +154,7 @@ LoanCalculator >> amortizationTableFor: loanAmount interest: interestRate term: 
 	^ schedule
 ]
 
-LoanCalculator >> amortizationTableHtmlFor: loanAmount interest: interestRate term: loanTerm html: html [
+LoanCalculator class >> amortizationTableHtmlFor: loanAmount interest: interestRate term: loanTerm html: html [
 	| schedule |
 	schedule := self amortizationTableFor: loanAmount interest: interestRate term: loanTerm.
 
@@ -179,6 +179,12 @@ LoanCalculator >> amortizationTableHtmlFor: loanAmount interest: interestRate te
 		].
 	].
 ]
+
+
+LoanCalculator  >> amortizationTableHtmlFor: loanAmount interest: interestRate term: loanTerm html: html [
+	^ self class amortizationTableHtmlFor: loanAmount interest: interestRate term: loanTerm html: html
+]
+
 
 LoanCalculator >> decimalRounded: value decimal: decimal [
 	| factor |

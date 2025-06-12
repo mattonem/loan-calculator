@@ -41,11 +41,16 @@ LoanCalculator class >> generateHtmlUsing: html [
 
 	<pharoJsSkip>
 
+	
 	html div class: 'container mt-5'; with: [
 		html div class: 'row justify-content-center'; with: [
+			html  heading
+                    level: 1; 
+					class: 'text-center mb-4'; 
+					with: [ html text: 'Loan Calculator' ].
 			html div class: 'col-md-6'; with: [
 				html div class: 'card'; with: [
-					html div class: 'card-header'; with: [ html text: 'Loan Calculator' ].
+					html div class: 'card-header'; with: [ html text: 'Loan details' ].
 					html div class: 'card-body'; with: [
 						html form with: [
 							html div class: 'mb-3'; with: [

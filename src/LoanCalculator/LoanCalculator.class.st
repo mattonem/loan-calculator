@@ -58,7 +58,7 @@ LoanCalculator class >> generateHtmlUsing: html [
 							].
 							html div class: 'mb-3'; with: [
 								html label class: 'form-label'; for: 'interestRate'; with: [ html text: 'Interest rate (%)' ].
-								html numberInput class: 'form-control'; id: 'interestRate'; placeholder: 'Enter interest rate'.
+								html numberInput class: 'form-control'; id: 'interestRate'; placeholder: 'Enter interest rate'; step: '0.01'.
 							].
 							html submitButton class: 'btn btn-primary'.
 						].
@@ -116,7 +116,7 @@ LoanCalculator >> start [
 				amortizationTableHtmlFor: (document getElementById: 'loanAmount') value asNumber 
 				interest: (document getElementById: 'interestRate') value asNumber  
 				term: (document getElementById: 'loanTerm') value asNumber 
-				html: html  ]).
+				html: html ]).
 		(document getElementById:'result') appendChild: frag content.
 	].
 	

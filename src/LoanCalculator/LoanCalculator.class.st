@@ -102,7 +102,53 @@ LoanCalculator >> start [
 
 	(document querySelector: 'form') addEventListener: 'submit' do: [ :event |
 		event preventDefault.
-		self bridgeClientClass window alert: 'Calculation triggered!'.
+		window alert: 'Calculation triggered!'.
+		console log: 'amortizationTableFor: interestRate: term:'.
+		console log: (self  amortizationTableFor: (document getElementById: 'loanAmount') value interest:  (document getElementById: 'interestRate') value  term: (document getElementById: 'loanTerm') value).
 	].
 	
+]
+
+{ #category : 'calculation' }
+LoanCalculator class >> amortizationTableFor: loanAmount interest:  term: loanTerm [
+	| principal interest monthlyRate n schedule remaining principalPayment interestPayment payment |
+	"Calculate monthly payment and build amortization schedule as a table."
+	monthlyRate := (interestRate / 100) / 12.
+	n := loanTerm * 12.
+	payment := loanAmount * (monthlyRate * (1 + monthlyRate) raisedTo: n) / (((1 + monthlyRate) raisedTo: n) - 1).
+	schedule := OrderedCollection new.
+	remaining := loanAmount.
+	1 to: n do: [:month |
+		interestPayment := remaining * monthlyRate.
+		principalPayment := payment - interestPayment.
+		remaining := remaining - principalPayment.
+		schedule add: { month. principalPayment. interestPayment. remaining max: 0 }.
+	].
+	^ schedule
+]
+
+LoanCalculator class >> amortizationTableHtmlFor: loanAmount interest: interestRate term: loanTerm html: html [
+	| schedule |
+	schedule := self amortizationTableFor: loanAmount interest: interestRate term: loanTerm.
+
+	html table class: 'table table-striped'; with: [
+		html thead with: [
+			html tr with: [
+				html th with: [ html text: 'Month' ].
+				html th with: [ html text: 'Principal' ].
+				html th with: [ html text: 'Interest' ].
+				html th with: [ html text: 'Balance' ].
+			].
+		].
+		html tbody with: [
+			schedule do: [:row |
+				html tr with: [
+					html td with: [ html text: row first asString ].
+					html td with: [ html text: row second asFloat printShowingDecimalPlaces: 2 ].
+					html td with: [ html text: row third asFloat printShowingDecimalPlaces: 2 ].
+					html td with: [ html text: row fourth asFloat printShowingDecimalPlaces: 2 ].
+				].
+			].
+		].
+	].
 ]

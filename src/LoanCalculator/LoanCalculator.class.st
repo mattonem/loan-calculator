@@ -143,22 +143,22 @@ LoanCalculator >> amortizationTableHtmlFor: loanAmount interest: interestRate te
 	| schedule |
 	schedule := self amortizationTableFor: loanAmount interest: interestRate term: loanTerm.
 
-	html table clazz: 'table table-striped'; with: [
-		html thead with: [
-			html tr with: [
+	html table class: 'table table-striped'; with: [
+		html tableHead with: [
+			html tableRow with: [
 				html th with: [ html text: 'Month' ].
 				html th with: [ html text: 'Principal' ].
 				html th with: [ html text: 'Interest' ].
 				html th with: [ html text: 'Balance' ].
 			].
 		].
-		html tbody with: [
+		html tableBody with: [
 			schedule do: [:row |
-				html tr with: [
-					html td with: [ html text: row first asString ].
-					html td with: [ html text: row second asFloat printShowingDecimalPlaces: 2 ].
-					html td with: [ html text: row third asFloat printShowingDecimalPlaces: 2 ].
-					html td with: [ html text: row fourth asFloat printShowingDecimalPlaces: 2 ].
+				html tableRow with: [
+					html tableColumn with: [ html text: row first asString ].
+					html tableColumn with: [ html text: row second asFloat printShowingDecimalPlaces: 2 ].
+					html tableColumn with: [ html text: row third asFloat printShowingDecimalPlaces: 2 ].
+					html tableColumn with: [ html text: row fourth asFloat printShowingDecimalPlaces: 2 ].
 				].
 			].
 		].

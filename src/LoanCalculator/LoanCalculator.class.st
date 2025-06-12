@@ -146,10 +146,10 @@ LoanCalculator >> amortizationTableHtmlFor: loanAmount interest: interestRate te
 	html table class: 'table table-striped'; with: [
 		html tableHead with: [
 			html tableRow with: [
-				html th with: [ html text: 'Month' ].
-				html th with: [ html text: 'Principal' ].
-				html th with: [ html text: 'Interest' ].
-				html th with: [ html text: 'Balance' ].
+				html tableHeading with: [ html text: 'Month' ].
+				html tableHeading with: [ html text: 'Principal' ].
+				html tableHeading with: [ html text: 'Interest' ].
+				html tableHeading with: [ html text: 'Balance' ].
 			].
 		].
 		html tableBody with: [

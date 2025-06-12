@@ -64,6 +64,11 @@ LoanCalculator class >> generateHtmlUsing: html [
 						].
 					].
 				].
+
+				html div class: 'card'; with: [
+					
+					html div class: 'card-body'; id: 'result'.
+				].
 			].
 		].
 	].
@@ -101,13 +106,17 @@ LoanCalculator >> start [
 	super start.
 
 	(document querySelector: 'form') addEventListener: 'submit' do: [ :event |
+		| frag |
 		event preventDefault.
-		window alert: 'Calculation triggered!'.
 		console log: 'amortizationTableFor: interestRate: term:'.
-		console log: (self  
-			amortizationTableFor: (document getElementById: 'loanAmount') value asNumber
-			interest:  (document getElementById: 'interestRate') value asNumber 
-			term: (document getElementById: 'loanTerm') value asNumber).
+		frag innerHTML: (WCHtmlCanvas builder
+			fullDocument: false;
+			render: [ :html | self 
+			amortizationTableHtmlFor: (document getElementById: 'loanAmount') value asNumber 
+			interest: (document getElementById: 'interestRate') value asNumber  
+			term: (document getElementById: 'loanTerm') value asNumber) 
+			html: html  ]).
+		(document getElementById:'result') appendChild: frag content.
 	].
 	
 ]

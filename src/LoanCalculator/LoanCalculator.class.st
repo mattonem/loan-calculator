@@ -105,9 +105,9 @@ LoanCalculator >> start [
 		window alert: 'Calculation triggered!'.
 		console log: 'amortizationTableFor: interestRate: term:'.
 		console log: (self  
-			amortizationTableFor: (document getElementById: 'loanAmount') value 
-			interest:  (document getElementById: 'interestRate') value  
-			term: (document getElementById: 'loanTerm') value).
+			amortizationTableFor: (document getElementById: 'loanAmount') value asNumber
+			interest:  (document getElementById: 'interestRate') value asNumber 
+			term: (document getElementById: 'loanTerm') value asNumber).
 	].
 	
 ]

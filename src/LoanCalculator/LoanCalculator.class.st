@@ -112,10 +112,10 @@ LoanCalculator >> start [
 		frag innerHTML: (WCHtmlCanvas builder
 			fullDocument: false;
 			render: [ :html | self 
-			amortizationTableHtmlFor: (document getElementById: 'loanAmount') value asNumber 
-			interest: (document getElementById: 'interestRate') value asNumber  
-			term: (document getElementById: 'loanTerm') value asNumber) 
-			html: html  ]).
+				amortizationTableHtmlFor: (document getElementById: 'loanAmount') value asNumber 
+				interest: (document getElementById: 'interestRate') value asNumber  
+				term: (document getElementById: 'loanTerm') value asNumber 
+				html: html  ]).
 		(document getElementById:'result') appendChild: frag content.
 	].
 	

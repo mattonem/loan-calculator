@@ -157,9 +157,9 @@ LoanCalculator >> amortizationTableHtmlFor: loanAmount interest: interestRate te
 			schedule do: [:row |
 				html tableRow with: [
 					html tableColumn with: [ html text: row first asString ].
-					html tableColumn with: [ html text: (self decimalRounded: (row second asFloat asString) decimal: 2 )].
-					html tableColumn with: [ html text: (self decimalRounded: (row third asFloat asString) decimal: 2 )].
-					html tableColumn with: [ html text: (self decimalRounded: (row fourth asFloat asString) decimal: 2 )].
+					html tableColumn with: [ html text: (self decimalRounded: (row second asFloat) decimal: 2 )].
+					html tableColumn with: [ html text: (self decimalRounded: (row third asFloat) decimal: 2 )].
+					html tableColumn with: [ html text: (self decimalRounded: (row fourth asFloat) decimal: 2 )].
 				].
 			].
 		].

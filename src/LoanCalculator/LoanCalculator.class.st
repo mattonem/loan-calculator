@@ -50,15 +50,15 @@ LoanCalculator class >> generateHtmlUsing: html [
 						html form with: [
 							html div class: 'mb-3'; with: [
 								html label class: 'form-label'; for: 'loanAmount'; with: [ html text: 'Loan amount' ].
-								html numberInput class: 'form-control'; id: 'loanAmount'; placeholder: 'Enter loan amount'.
+								html numberInput class: 'form-control'; id: 'loanAmount'; placeholder: 'Enter loan amount'; value: 10000.
 							].
 							html div class: 'mb-3'; with: [
 								html label class: 'form-label'; for: 'loanTerm'; with: [ html text: 'Loan term (years)' ].
-								html numberInput class: 'form-control'; id: 'loanTerm'; placeholder: 'Enter loan term'.
+								html numberInput class: 'form-control'; id: 'loanTerm'; placeholder: 'Enter loan term'; value: 10.
 							].
 							html div class: 'mb-3'; with: [
 								html label class: 'form-label'; for: 'interestRate'; with: [ html text: 'Interest rate (%)' ].
-								html numberInput class: 'form-control'; id: 'interestRate'; placeholder: 'Enter interest rate'; step: '0.01'.
+								html numberInput class: 'form-control'; id: 'interestRate'; placeholder: 'Enter interest rate'; step: '0.01'; value: 5.
 							].
 							html submitButton class: 'btn btn-primary'.
 						].

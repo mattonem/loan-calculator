@@ -134,7 +134,7 @@ LoanCalculator >> handleFormSubmit: event [
 	frag := document createElement: 'template'.
 	frag innerHTML: (WCHtmlCanvas builder
 		fullDocument: false;
-		render: [ :html | 
+		render: [ :html | self
 			costSummaryHtmlFor: (document getElementById: 'loanAmount') value asNumber 
 			interest: (document getElementById: 'interestRate') value asNumber  
 			term: (document getElementById: 'loanTerm') value asNumber 

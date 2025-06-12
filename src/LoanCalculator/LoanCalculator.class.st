@@ -109,6 +109,7 @@ LoanCalculator >> start [
 		| frag |
 		event preventDefault.
 		console log: 'amortizationTableFor: interestRate: term:'.
+		frag := document createElement: 'template'.
 		frag innerHTML: (WCHtmlCanvas builder
 			fullDocument: false;
 			render: [ :html | self 

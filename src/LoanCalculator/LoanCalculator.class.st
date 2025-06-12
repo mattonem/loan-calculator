@@ -128,12 +128,21 @@ LoanCalculator >> start [
 ]
 
 { #category : 'calculation' }
+LoanCalculator >> monthlyPaymentFor: loanAmount interest: interestRate term: loanTerm [
+	| monthlyRate n |
+	monthlyRate := (interestRate / 100) / 12.
+	n := loanTerm * 12.
+	^ (monthlyRate = 0)
+		ifTrue: [ loanAmount / n ]
+		ifFalse: [ loanAmount * (monthlyRate * ((1 + monthlyRate) raisedTo: n)) / (((1 + monthlyRate) raisedTo: n) - 1) ]
+]
+
 LoanCalculator >> amortizationTableFor: loanAmount interest: interestRate term: loanTerm [
-	| principal interest monthlyRate n schedule remaining principalPayment interestPayment payment |
+	| monthlyRate n schedule remaining principalPayment interestPayment payment |
 	"Calculate monthly payment and build amortization schedule as a table."
 	monthlyRate := (interestRate / 100) / 12.
 	n := loanTerm * 12.
-	payment := (loanAmount * (monthlyRate * ((1 + monthlyRate) raisedTo: n))) / (((1 + monthlyRate) raisedTo: n) - 1).
+	payment := self monthlyPaymentFor: loanAmount interest: interestRate term: loanTerm.
 	schedule := OrderedCollection new.
 	remaining := loanAmount.
 	1 to: n do: [:month |
